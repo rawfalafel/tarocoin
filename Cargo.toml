@@ -1,0 +1,6 @@
+[package]
+name = "tarocoin"
+version = "0.1.0"
+authors = ["rawfalafel <ymori123@gmail.com>"]
+
+[dependencies]
