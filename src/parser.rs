@@ -23,7 +23,7 @@ pub fn stdin_parser(tx: mpsc::Sender<command::Command>) {
             let id = match words.next() {
                 Some(id) => id,
                 None => {
-                    println!("Must provided id when creatnig key");
+                    println!("Must provide id when creating key");
                     continue;
                 }
             };

@@ -4,6 +4,7 @@ use std::sync::mpsc;
 
 mod command;
 mod parser;
+mod keys;
 
 fn main() {
     // Create channel
@@ -23,7 +24,10 @@ fn main() {
             },
             command::Command::CreateKey(id) => {
                 println!("Create key: {}", id);
-            }
+                if let Err(err) = keys::generate(id) {
+                    println!("Err: {}", err);
+                }
+            },
         }
     }
 }

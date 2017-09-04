@@ -1,3 +1,8 @@
 /target/
 **/*.rs.bk
+
+# IntelliJ config file
 .idea
+
+# key storage directory
+/keys/
