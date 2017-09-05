@@ -1,9 +1,9 @@
 use std::io::{self, BufRead};
 use std::sync::mpsc;
 
-use command;
+use commands;
 
-pub fn stdin_parser(tx: mpsc::Sender<command::Command>) {
+pub fn stdin_parser(tx: mpsc::Sender<commands::Command>) {
     let stdin = io::stdin();
     for line in stdin.lock().lines() {
         let line = line.unwrap();
@@ -18,8 +18,8 @@ pub fn stdin_parser(tx: mpsc::Sender<command::Command>) {
         };
 
         if command.eq("kill") {
-            tx.send(command::Command::Kill).unwrap();
-        } else if command.eq("create_key") {
+            tx.send(commands::Command::Kill).unwrap();
+        } else if command.eq("key") {
             let id = match words.next() {
                 Some(id) => id,
                 None => {
@@ -28,7 +28,9 @@ pub fn stdin_parser(tx: mpsc::Sender<command::Command>) {
                 }
             };
 
-            tx.send(command::Command::CreateKey(id.to_string())).unwrap();
+            tx.send(commands::Command::CreateKey(id.to_string())).unwrap();
+        } else if command.eq("tx") {
+            tx.send(commands::Command::CreateTransaction).unwrap();
         }
     }
 }

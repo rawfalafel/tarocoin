@@ -2,7 +2,7 @@ use std::thread;
 use std::process;
 use std::sync::mpsc;
 
-mod command;
+mod commands;
 mod parser;
 mod keys;
 mod error;
@@ -19,16 +19,19 @@ fn main() {
     // Loop until it reads kill command
     loop {
         match rx.recv().unwrap() {
-            command::Command::Kill => {
+            commands::Command::Kill => {
                 println!("Program killed");
                 process::exit(0);
             },
-            command::Command::CreateKey(id) => {
+            commands::Command::CreateKey(id) => {
                 println!("Create key: {}", id);
                 if let Err(err) = keys::generate(id) {
-                    println!("{:?}", err);
+                    println!("Err: {:?}", err);
                 }
             },
+            commands::Command::CreateTransaction => {
+                println!("Create transaction");
+            }
         }
     }
 }
